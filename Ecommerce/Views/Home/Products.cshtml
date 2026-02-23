@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div id="dv-products" class="row"></div>
+
+<script>
+    $(document).ready(function() {
+        $.get("https://dummyjson.com/products", function(response) {
+            $.each(response.products, function(index, product){
+                $('#dv-products').append(
+                    `
+                    <div class="col col-sm">
+                        <div class="card" style="width: 18rem;">
+                            <img id="pd-img_${product.id}" src="${product.images[0]}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title" id="pd-title_${product.id}">${product.title}</h5>
+                                <p class="card-text" id=pd-price_${product.id}">${product.price}</p>
+                                <a href="#" class="btn btn-primary" id="pd_${product.id}" onclick="CartController.addToCart(${product.id})">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                );
+            });
+        });
+    });
+</script>
